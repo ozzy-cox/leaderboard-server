@@ -2,8 +2,6 @@ import { TOP_PLAYERS_COUNT } from '../configs/BoardConfig'
 import { IUser } from '@/user/entities/IUser'
 import assert from 'assert'
 import { ILeaderboardRepository } from '../repositories/ILeaderboardRepository'
-import { LeaderboardService } from '../services/LeaderboardService'
-import { ILBUserRepr } from '../entities/ILeaderboard'
 import { IUserRepository } from '@/user/repositories/IUserRepository'
 import { UserRepository } from '@/user/infra/orm/repositories/UserRepository'
 import { LeaderboardORMRepository } from '../infra/orm/repositories/LeaderboardORMRepository'
@@ -30,13 +28,13 @@ describe('getting leaderboard attributes', () => {
     // const user = await userRepository.getUser(createdUser.id)
     const topUserIds: IUser[] = await leaderboardRepository.getTopUsers(TOP_PLAYERS_COUNT)
 
-    console.log(topUserIds)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-
     expect(topUserIds.length).toBeLessThanOrEqual(TOP_PLAYERS_COUNT)
 
     // TODO extend tests
+
+    test('should get the created user`s leaderboard position', () => {
+      //
+    })
   })
 
   afterAll(async () => {

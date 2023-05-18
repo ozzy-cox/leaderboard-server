@@ -1,5 +1,5 @@
-import { ILBUserRepr } from '../entities/ILeaderboard'
+import { IUser } from '@/user/entities/IUser'
 
 export interface ILeaderboardRepository {
-  getTopUsers(amount: number): Promise<ILBUserRepr[]>
+  getTopUsers(amount: number): Promise<IUser[]>
 }

@@ -6,5 +6,3 @@ export interface ILeaderboard {
   currentUser: IUser
   playersBelow: IUser[]
 }
-
-export type ILBUserRepr = Pick<IUser, 'id' | 'money'>
