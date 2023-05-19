@@ -5,6 +5,7 @@ import { UserRepository } from '../infra/orm/repositories/UserRepository'
 import { ORM, wipeDb } from '@/orm'
 import { off } from 'process'
 import { createDummyUsers } from '@/initializeDbForTests'
+import { TOP_PLAYERS_COUNT } from '@/leaderboard/configs/BoardConfig'
 
 describe('getting user info', () => {
   let userRepository: IUserRepository
@@ -24,6 +25,14 @@ describe('getting user info', () => {
     assert(createdUser)
     const queriedUser = await userRepository.getUser(createdUser.id)
     expect(createdUser).toEqual(queriedUser)
+  })
+
+  test('should get top users', async () => {
+    assert(createdUser)
+    // const user = await userRepository.getUser(createdUser.id)
+    const topUserIds = await userRepository.getTopUsers(TOP_PLAYERS_COUNT)
+
+    expect(topUserIds.length).toBeLessThanOrEqual(TOP_PLAYERS_COUNT)
   })
 
   afterAll(async () => {
