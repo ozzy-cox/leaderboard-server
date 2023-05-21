@@ -10,8 +10,9 @@ export default {
   entities: [User, Base], // no need for `entitiesTs` this way
   dbName: 'test.db',
   type: 'sqlite', // one of `mongo` | `mysql` | `mariadb` | `postgresql` | `sqlite`
-  cache: {
+  resultCache: {
     adapter: RedisCacheAdapter,
+    expiration: 1000,
     options: {
       // Base options
       // An optional key prefix. By default is `mikro`

@@ -18,8 +18,8 @@ describe('registering a game result', () => {
     userRepository = new UserRepository(em)
     gameRepository = new GameRepository(em)
     await wipeDb()
-    await createDummyUsers(em)
-    createdUser = await userRepository.createUser('ozan', 'turkey')
+    await createDummyUsers()
+    createdUser = await userRepository.addUser('ozan', 'turkey')
   })
 
   test('should register a game result', async () => {
