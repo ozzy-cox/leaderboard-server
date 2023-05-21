@@ -2,6 +2,7 @@ import { ILeaderboardRepository } from '@/leaderboard/repositories/ILeaderboardR
 import { IUser } from '@/user/entities/IUser'
 import Redis from 'ioredis'
 import { chunk, flatten } from 'lodash-es'
+import { parse } from 'path'
 const REDIS_LEADERBOARD_KEY = 'leaderboard'
 
 export class LeaderboardRepository implements ILeaderboardRepository {
@@ -36,6 +37,12 @@ export class LeaderboardRepository implements ILeaderboardRepository {
     const response = await this.cache.zscore(REDIS_LEADERBOARD_KEY, id)
 
     if (response) return parseInt(response)
+    return null
+  }
+
+  async incrementUserScore(id: string, moneyGained: number): Promise<number | null> {
+    const incr = await this.cache.zincrby(REDIS_LEADERBOARD_KEY, moneyGained, id)
+    if (incr) return parseInt(incr)
     return null
   }
 }

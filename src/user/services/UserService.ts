@@ -18,4 +18,12 @@ export class UserService {
     const users = await this.repository.getUsersById(ids)
     return ids.reduce((acc, curr) => ({ ...acc, [curr]: users.find((user) => user && user.id === curr) }), {})
   }
+
+  async createUser(username: IUser['username'], country: IUser['country']) {
+    return await this.repository.addUser(username, country)
+  }
+
+  async getUser(id: IUser['id']) {
+    return (await this.repository.getUsersById([id]))[0]
+  }
 }

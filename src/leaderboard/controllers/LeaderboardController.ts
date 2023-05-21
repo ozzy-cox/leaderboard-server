@@ -14,11 +14,6 @@ export const getLeaderboard = async (req: Request, res: Response) => {
   res.json(leaderboardRecords)
 }
 
-export const getCurrentUser = async (req: Request, res: Response) => {
-  //TODo
-}
-
 export const getUserRangeInLeaderboard = async (req: Request, res: Response) => {
   // TODO
-  const userId = req.body
 }

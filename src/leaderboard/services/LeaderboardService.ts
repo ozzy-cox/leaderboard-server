@@ -12,4 +12,16 @@ export class LeaderboardService {
   async getLeaderboardRecords() {
     return await this.repository.getUserScoresInRange(0, TOP_PLAYERS_COUNT)
   }
+
+  async getUserRank(id: string) {
+    return await this.repository.getUserRank(id)
+  }
+
+  async getUserMoney(id: string) {
+    return await this.repository.getUserMoney(id)
+  }
+
+  async updateScore(id: IUser['id'], increment: number) {
+    return await this.repository.incrementUserScore(id, increment)
+  }
 }
