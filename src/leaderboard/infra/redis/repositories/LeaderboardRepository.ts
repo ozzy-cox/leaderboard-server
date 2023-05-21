@@ -6,9 +6,11 @@ const REDIS_LEADERBOARD_KEY = 'leaderboard'
 
 export class LeaderboardRepository implements ILeaderboardRepository {
   constructor(private cache: Redis) {}
-  async getLeaderboard(amount: number) {
+  async getUserScoresInRange(from: number, to: number) {
+    const minRank = Math.max(from, 0)
+    const toRank = Math.max(to - 1, 0)
     const userScores: Pick<IUser, 'id' | 'money'>[] = chunk(
-      await this.cache.zrange(REDIS_LEADERBOARD_KEY, 0, amount, 'WITHSCORES'),
+      await this.cache.zrange(REDIS_LEADERBOARD_KEY, minRank, toRank, 'REV', 'WITHSCORES'),
       2
     ).map((slice) => ({ id: slice[0], money: parseInt(slice[1]) }))
     return userScores
@@ -23,6 +25,17 @@ export class LeaderboardRepository implements ILeaderboardRepository {
     if (userMoney) {
       return parseInt(userMoney)
     }
+    return null
+  }
+
+  async getUserRank(id: string): Promise<number | null> {
+    return await this.cache.zrevrank(REDIS_LEADERBOARD_KEY, id)
+  }
+
+  async getUserScore(id: string): Promise<number | null> {
+    const response = await this.cache.zscore(REDIS_LEADERBOARD_KEY, id)
+
+    if (response) return parseInt(response)
     return null
   }
 }

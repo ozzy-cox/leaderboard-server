@@ -57,9 +57,35 @@ describe('getting leaderboard from cache', () => {
 
     await leaderboardRepository.update(...users)
 
-    const leaderboard = await leaderboardRepository.getLeaderboard(TOP_PLAYERS_COUNT)
+    const leaderboard = await leaderboardRepository.getUserScoresInRange(0, TOP_PLAYERS_COUNT)
 
     expect(leaderboard).toHaveLength(users.length)
-    expect(leaderboard).toEqual(users.sort((a, b) => a.money - b.money))
+    expect(leaderboard).toEqual(users.sort((a, b) => b.money - a.money))
+  })
+
+  test('should get the user rank and the range of users the current user is in', async () => {
+    const users = [
+      { id: '1', money: 50 },
+      { id: '2', money: 2400 },
+      { id: '3', money: 1500 },
+      { id: '4', money: 600 },
+      { id: '5', money: 1700 },
+      { id: '6', money: 1200 },
+      { id: '7', money: 1000 },
+      { id: '8', money: 4000 },
+      { id: '9', money: 2800 },
+      { id: '10', money: 1000 },
+      { id: '11', money: 1500 }
+    ]
+
+    await leaderboardRepository.update(...users)
+
+    const userRank = await leaderboardRepository.getUserRank('7')
+
+    expect(userRank).toBe(7)
+
+    const userScore = await leaderboardRepository.getUserScore('7')
+
+    expect(userScore).toBe(1000)
   })
 })
