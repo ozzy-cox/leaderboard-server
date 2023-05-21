@@ -6,8 +6,10 @@ import { ORM, wipeDb } from '@/orm'
 import { createDummyUsers } from '@/initializeDbForTests'
 import { IUser } from '@/user/entities/IUser'
 import { GameRepository } from '../infra/orm/repositories/GameRepository'
+import { useDummyUsers } from '@/common/tests/helpers/UseDummyUsers.test.helpers'
 
 describe('registering a game result', () => {
+  useDummyUsers()
   let userRepository: IUserRepository
   let gameRepository: IGameRepository
   let createdUser: IUser | undefined
@@ -17,8 +19,6 @@ describe('registering a game result', () => {
 
     userRepository = new UserRepository(em)
     gameRepository = new GameRepository(em)
-    await wipeDb()
-    await createDummyUsers()
     createdUser = await userRepository.addUser('ozan', 'turkey')
   })
 
@@ -26,14 +26,10 @@ describe('registering a game result', () => {
     assert(createdUser)
 
     const moneyGained = 50
-    const game = await gameRepository.addGame(createdUser, moneyGained)
+    const game = await gameRepository.addGame(createdUser.id, moneyGained)
+    console.log(game)
 
-    expect(game?.user).toBe(createdUser)
-    expect(createdUser._games[0]).toBe(game)
-  })
-
-  afterAll(async () => {
-    await wipeDb()
-    await (await ORM.getInstance()).close()
+    expect(game?.user.id).toEqual(createdUser.id)
+    expect(game?.moneyGained).toEqual(moneyGained)
   })
 })
