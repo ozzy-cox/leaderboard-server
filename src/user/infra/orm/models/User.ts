@@ -2,10 +2,11 @@ import { Base } from '@/common/infra/orm/models/Base'
 import { IGame } from '@/game/entities/IGame'
 import { Game } from '@/game/infra/orm/models/Game'
 import { IUser } from '@/user/entities/IUser'
-import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
+import { Collection, Entity, OneToMany, Property, Unique } from '@mikro-orm/core'
 import { sum } from 'lodash-es'
 
 @Entity()
+@Unique({ properties: ['id'] })
 export class User extends Base implements IUser {
   @Property()
   username!: string
