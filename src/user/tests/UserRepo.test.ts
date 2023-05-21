@@ -3,27 +3,27 @@ import { IUser } from '../entities/IUser'
 import { IUserRepository } from '../repositories/IUserRepository'
 import { UserRepository } from '../infra/orm/repositories/UserRepository'
 import { ORM, wipeDb } from '@/orm'
-import { off } from 'process'
 import { createDummyUsers } from '@/initializeDbForTests'
 import { TOP_PLAYERS_COUNT } from '@/leaderboard/configs/BoardConfig'
+import { pick } from 'lodash-es'
 
 describe('getting user info', () => {
   let userRepository: IUserRepository
-  let user: IUser | undefined
   let createdUser: IUser | undefined
+  let fakeUsers: IUser[]
 
   beforeAll(async () => {
     const em = (await ORM.getInstance()).em.fork()
 
     userRepository = new UserRepository(em)
     await wipeDb()
-    await createDummyUsers(em)
-    createdUser = await userRepository.createUser('ozan', 'turkey')
+    fakeUsers = await createDummyUsers()
+    createdUser = await userRepository.addUser('ozan', 'turkey')
   })
 
   test('should get user info from repository', async () => {
     assert(createdUser)
-    const queriedUser = await userRepository.getUser(createdUser.id)
+    const queriedUser = (await userRepository.getUsersById([createdUser.id]))[0]
     expect(createdUser).toEqual(queriedUser)
   })
 

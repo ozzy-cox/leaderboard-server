@@ -4,6 +4,6 @@ import { faker } from '@faker-js/faker'
 
 export const generateUsers = async (amount: number, userRepository: IUserRepository) => {
   range(amount).forEach(() => {
-    userRepository.createUser(faker.internet.userName(), faker.location.country())
+    userRepository.addUser(faker.internet.userName(), faker.location.country())
   })
 }
