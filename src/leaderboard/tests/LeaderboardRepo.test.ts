@@ -88,4 +88,17 @@ describe('getting leaderboard from cache', () => {
 
     expect(userScore).toBe(1000)
   })
+
+  test('should increment the user score by 15', async () => {
+    const users = [
+      { id: '1', money: 50 },
+      { id: '2', money: 2400 }
+    ]
+    await leaderboardRepository.update(...users)
+
+    await leaderboardRepository.incrementUserScore('1', 50)
+
+    const userScore = await leaderboardRepository.getUserScore('1')
+    expect(userScore).toBe(100)
+  })
 })

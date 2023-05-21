@@ -1,10 +1,10 @@
+import { useDummyUsers } from '@/common/tests/helpers/UseDummyUsers.test.helpers'
 import { Context } from '@/context'
 import { createDummyUsers } from '@/initializeDbForTests'
 import { mockContext } from '@/mockContext'
 import { ORM, wipeDb } from '@/orm'
 import { IUser } from '@/user/entities/IUser'
 import { pick } from 'lodash-es'
-import { useDummyUsers } from './helpers/UseDummyUsers.test.helpers'
 
 describe('initialize leaderboard from db', () => {
   const getContext = useDummyUsers()
