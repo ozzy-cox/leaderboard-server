@@ -27,7 +27,6 @@ describe('registering a game result', () => {
 
     const moneyGained = 50
     const game = await gameRepository.addGame(createdUser.id, moneyGained)
-    console.log(game)
 
     expect(game?.user.id).toEqual(createdUser.id)
     expect(game?.moneyGained).toEqual(moneyGained)
