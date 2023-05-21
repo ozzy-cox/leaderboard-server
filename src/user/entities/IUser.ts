@@ -8,3 +8,7 @@ export interface IUser extends IBase {
   get _money(): number
   get _games(): IGame[]
 }
+
+export interface IUserWithMoney extends IUser {
+  money: number
+}
