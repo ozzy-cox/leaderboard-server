@@ -1,8 +1,9 @@
 import express, { Express, NextFunction, Request, Response } from 'express'
-import { getLeaderboard } from './leaderboard/controllers/LeaderboardController'
+import { getLeaderboard, getUserRangeInLeaderboard } from './leaderboard/controllers/LeaderboardController'
 import { Context } from './context'
 import { mockContext } from './mockContext'
-import { createDummyUsers } from './initializeDbForTests'
+import { createUser, getCurrentUser } from './user/controllers/UserController'
+import { registerGame } from './game/controllers/GameController'
 
 export const app: Express = express()
 
@@ -18,7 +19,9 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(express.json())
 
-app.get('/leaderboard', getLeaderboard)
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/leaderboard', getLeaderboard)
+app.use('/me', getCurrentUser)
+app.use('/my-range', getUserRangeInLeaderboard)
+
+app.use('/create-user', createUser)
+app.use('/register-game', registerGame)
