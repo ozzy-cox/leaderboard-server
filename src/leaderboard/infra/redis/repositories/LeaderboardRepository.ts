@@ -2,7 +2,6 @@ import { ILeaderboardRepository } from '@/leaderboard/repositories/ILeaderboardR
 import { IUser } from '@/user/entities/IUser'
 import Redis from 'ioredis'
 import { chunk, flatten } from 'lodash-es'
-import { parse } from 'path'
 const REDIS_LEADERBOARD_KEY = 'leaderboard'
 
 export class LeaderboardRepository implements ILeaderboardRepository {

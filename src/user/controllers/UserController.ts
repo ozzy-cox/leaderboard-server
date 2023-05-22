@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { IUser } from '../entities/IUser'
 
 export const createUser = async (req: Request, res: Response) => {
   const { userService, leaderboardService } = req.context
@@ -23,12 +24,25 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     const userResponses = await userService.getUsersById([userId])
     if (userResponses && userId in userResponses) {
       const user = userResponses[userId]
-      if (user) {
+      const userRank = await leaderboardService.getUserRank(userId)
+      if (user && userRank) {
+        let userRange: IUser[] = (await leaderboardService.getUserRange(userRank)) as IUser[]
+        const userRangeDetails = await userService.getUsersById(userRange.map((user) => user.id))
+        userRange = userRange.map(
+          (user) =>
+            ({
+              ...userRangeDetails[user.id],
+              money: user.money
+            } as IUser)
+        )
         Object.assign(user, {
-          money: await leaderboardService.getUserMoney(userId),
-          rank: await leaderboardService.getUserRank(userId)
+          money: await leaderboardService.getUserMoney(userId)
         })
-        res.json(user)
+        res.json({
+          ...user,
+          rank: userRank,
+          range: userRange
+        })
       }
     }
   }

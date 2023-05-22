@@ -1,4 +1,4 @@
-import { IUser, IUserWithMoney } from '@/user/entities/IUser'
+import { IUser } from '@/user/entities/IUser'
 import { ILeaderboardRepository } from '../repositories/ILeaderboardRepository'
 import { TOP_PLAYERS_COUNT } from '../configs/BoardConfig'
 
@@ -23,5 +23,9 @@ export class LeaderboardService {
 
   async updateScore(id: IUser['id'], increment: number) {
     return await this.repository.incrementUserScore(id, increment)
+  }
+
+  async getUserRange(userRank: number) {
+    return await this.repository.getUserScoresInRange(userRank - 3, userRank + 3)
   }
 }

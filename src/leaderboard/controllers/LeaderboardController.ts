@@ -13,7 +13,3 @@ export const getLeaderboard = async (req: Request, res: Response) => {
   })
   res.json(leaderboardRecords)
 }
-
-export const getUserRangeInLeaderboard = async (req: Request, res: Response) => {
-  // TODO
-}

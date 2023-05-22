@@ -87,6 +87,12 @@ describe('getting leaderboard from cache', () => {
     const userScore = await leaderboardRepository.getUserScore('7')
 
     expect(userScore).toBe(1000)
+
+    assert(userRank)
+
+    const userRange = await leaderboardRepository.getUserScoresInRange(userRank - 3, userRank + 3)
+
+    expect(userRange).toHaveLength(6)
   })
 
   test('should increment the user score by 15', async () => {
