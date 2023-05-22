@@ -18,6 +18,6 @@
    1. Remaining will be given to the **other** players in the top 100.
       1. Maybe in inverse ratio of their ordering in the leaderboard ??
 1. The top ranking data is as follows: (rel: Technical.6)
-    1. First 100 players, the player searched, 3 players above and two players below the searched player.
+    1. First 100 players, the player searched, 3 players above and 2 players below the searched player.
 1. After distribution, 
 
