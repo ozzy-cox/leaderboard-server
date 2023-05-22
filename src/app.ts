@@ -1,5 +1,5 @@
 import express, { Express, NextFunction, Request, Response } from 'express'
-import { getLeaderboard, getUserRangeInLeaderboard } from './leaderboard/controllers/LeaderboardController'
+import { getLeaderboard } from './leaderboard/controllers/LeaderboardController'
 import { Context } from './context'
 import { mockContext } from './mockContext'
 import { createUser, getCurrentUser } from './user/controllers/UserController'
@@ -21,7 +21,6 @@ app.use(express.json())
 
 app.use('/leaderboard', getLeaderboard)
 app.use('/me', getCurrentUser)
-app.use('/my-range', getUserRangeInLeaderboard)
 
 app.use('/create-user', createUser)
 app.use('/register-game', registerGame)
