@@ -1,11 +1,19 @@
-import { Redis } from 'ioredis'
+import { createClient } from 'redis'
+import type { RedisClientType } from 'redis'
 
 export class REDIS {
-  private static instance?: Redis
+  private static instance?: ReturnType<typeof createClient>
 
   public static getInstance = async () => {
     if (!REDIS.instance) {
-      REDIS.instance = new Redis()
+      const client = createClient({
+        url: ''
+      })
+
+      client.on('error', (err) => console.log('Redis Client Error', err))
+
+      await client.connect()
+      REDIS.instance = client
     }
     return REDIS.instance
   }

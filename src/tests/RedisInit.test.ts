@@ -1,8 +1,8 @@
 import { REDIS } from '@/redis'
-import Redis from 'ioredis'
+import type { createClient } from 'redis'
 
 describe('initializing redis', () => {
-  let redis: Redis | undefined
+  let redis: ReturnType<typeof createClient>
 
   test('should initialize a redis connection', async () => {
     redis = await REDIS.getInstance()
@@ -12,8 +12,8 @@ describe('initializing redis', () => {
 
   test('should close a redis connection', async () => {
     redis = await REDIS.getInstance()
-    await redis.disconnect()
+    expect(redis.isOpen).toBe(true)
 
-    expect(redis.status).toBe('connecting')
+    expect(redis.isOpen).toBe(false)
   })
 })

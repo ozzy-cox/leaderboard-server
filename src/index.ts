@@ -9,7 +9,6 @@ const port = 8000
 await wipeDb()
 await createDummyUsers()
 const context = await mockContext()
-await createDummyUsers()
 
 const usersWithMoney = await context.userService.getAllUsersWithMoney()
 await context.leaderboardService.updateRecords(
