@@ -4,6 +4,7 @@ import { Context } from './context'
 import { mockContext } from './mockContext'
 import { createUser, getCurrentUser } from './user/controllers/UserController'
 import { registerGame } from './game/controllers/GameController'
+import cors from 'cors'
 
 export const app: Express = express()
 
@@ -14,6 +15,7 @@ const contextMiddleware = (context: Context) => (req: Request, res: Response, ne
 
 const context = await mockContext()
 
+app.use(cors())
 app.use(contextMiddleware(context))
 app.use(express.urlencoded({ extended: false }))
 
