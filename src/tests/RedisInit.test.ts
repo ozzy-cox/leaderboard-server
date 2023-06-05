@@ -14,6 +14,8 @@ describe('initializing redis', () => {
     redis = await REDIS.getInstance()
     expect(redis.isOpen).toBe(true)
 
+    await redis.disconnect()
+
     expect(redis.isOpen).toBe(false)
   })
 })
