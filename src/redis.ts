@@ -1,13 +1,12 @@
 import { createClient } from 'redis'
-import type { RedisClientType } from 'redis'
 
 export class REDIS {
   private static instance?: ReturnType<typeof createClient>
 
   public static getInstance = async () => {
     if (!REDIS.instance) {
-      const client = createClient({
-        url: ''
+      const client = await createClient({
+        url: 'redis://localhost:6399'
       })
 
       client.on('error', (err) => console.log('Redis Client Error', err))
