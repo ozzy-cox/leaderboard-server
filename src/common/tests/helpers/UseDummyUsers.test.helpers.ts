@@ -13,6 +13,11 @@ export const useDummyUsers = () => {
     await context.leaderboardService.updateRecords(
       ...usersWithMoney.map((user) => ({ id: user.id, money: user.money || 0 }))
     )
+    await Promise.all(
+      usersWithMoney.map(async (user) => {
+        await context.userService.updateUserCache(user)
+      })
+    )
   })
 
   afterAll(async () => {
