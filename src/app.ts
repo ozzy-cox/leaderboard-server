@@ -2,7 +2,7 @@ import express, { Express, NextFunction, Request, Response } from 'express'
 import { getLeaderboard } from './leaderboard/controllers/LeaderboardController'
 import { Context } from './context'
 import { mockContext } from './mockContext'
-import { createUser, getCurrentUser } from './user/controllers/UserController'
+import { createUser, getCurrentUser, searchUsers } from './user/controllers/UserController'
 import { registerGame } from './game/controllers/GameController'
 import cors from 'cors'
 
@@ -26,3 +26,5 @@ app.use('/me', getCurrentUser)
 
 app.use('/create-user', createUser)
 app.use('/register-game', registerGame)
+
+app.use('/search-users', searchUsers)
