@@ -8,7 +8,7 @@ import { LeaderboardService } from './leaderboard/services/LeaderboardService'
 import { GameService } from './game/services/GameService'
 import { GameRepository } from './game/infra/orm/repositories/GameRepository'
 import { UserSearchRepository } from './user/infra/orm/repositories/UserSearchRepository'
-import { REDIS } from './redis'
+import { REDIS } from './redisClient'
 
 export const mockContext = async (): Promise<Context> => {
   // TODO change orm hook to get different versions of dev and prod

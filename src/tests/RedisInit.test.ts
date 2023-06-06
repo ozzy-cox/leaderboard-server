@@ -1,4 +1,4 @@
-import { REDIS } from '@/redis'
+import { REDIS } from '@/redisClient'
 import type { createClient } from 'redis'
 
 describe('initializing redis', () => {

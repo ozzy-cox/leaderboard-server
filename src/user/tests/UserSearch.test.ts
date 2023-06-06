@@ -1,6 +1,6 @@
 import { useDummyUsers } from '@/common/tests/helpers/UseDummyUsers.test.helpers'
 import { UserSearchRepository } from '../infra/orm/repositories/UserSearchRepository'
-import { REDIS } from '@/redis'
+import { REDIS } from '@/redisClient'
 import { SchemaFieldTypes, createClient } from 'redis'
 import assert from 'assert'
 
