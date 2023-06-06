@@ -47,3 +47,14 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     }
   }
 }
+
+export const searchUsers = async (req: Request, res: Response) => {
+  const { userService } = req.context
+
+  const query = req.query.query as string
+  if (query && query.length > 2) {
+    const results = await userService.searchUsernames(query)
+    res.json(results)
+  }
+  return res.status(500)
+}

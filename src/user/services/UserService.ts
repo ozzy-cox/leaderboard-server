@@ -37,4 +37,10 @@ export class UserService {
       await this.cache?.cacheUsername(user)
     }
   }
+
+  async searchUsernames(query: string) {
+    if (this.cache) {
+      return await this.cache?.findUsersByUsername(query)
+    }
+  }
 }
