@@ -6,7 +6,7 @@ export class UserSearchRepository implements IUserSearchRepository {
   constructor(private client: ReturnType<typeof createClient>) {}
   async findUsersByUsername(query: string): Promise<Pick<IUser, 'username' | 'id'>[]> {
     const results = await this.client.ft.search('idx:username', `@username: *${query}*`)
-    return results.documents.map((doc) => ({ id: doc.id, username: doc.value.username })) as Pick<
+    return results.documents.map((doc) => ({ id: doc.id.split(':').pop(), username: doc.value.username })) as Pick<
       IUser,
       'username' | 'id'
     >[]

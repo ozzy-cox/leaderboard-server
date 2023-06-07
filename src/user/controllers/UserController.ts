@@ -17,7 +17,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 }
 
-export const getCurrentUser = async (req: Request, res: Response) => {
+export const getUserPlacing = async (req: Request, res: Response) => {
   const { leaderboardService, userService } = req.context
   const userId = req.query.user_id as string
   if (userId) {

@@ -2,7 +2,7 @@ import express, { Express, NextFunction, Request, Response } from 'express'
 import { getLeaderboard } from './leaderboard/controllers/LeaderboardController'
 import { Context } from './context'
 import { mockContext } from './mockContext'
-import { createUser, getCurrentUser, searchUsers } from './user/controllers/UserController'
+import { createUser, getUserPlacing, searchUsers } from './user/controllers/UserController'
 import { registerGame } from './game/controllers/GameController'
 import cors from 'cors'
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use('/leaderboard', getLeaderboard)
-app.use('/me', getCurrentUser)
+app.use('/user-placing', getUserPlacing)
 
 app.use('/create-user', createUser)
 app.use('/register-game', registerGame)
